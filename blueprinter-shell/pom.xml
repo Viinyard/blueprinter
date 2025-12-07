@@ -4,7 +4,7 @@
     <parent>
         <groupId>dev.vinyard.blueprinter</groupId>
         <artifactId>blueprinter</artifactId>
-        <version>2.0.1</version>
+        <version>3.0.0</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -12,14 +12,14 @@
     <artifactId>blueprinter-shell</artifactId>
     <name>blueprinter-shell</name>
     <packaging>jar</packaging>
-    <version>2.0.1</version>
+    <version>3.0.0</version>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.springframework.shell</groupId>
                 <artifactId>spring-shell-dependencies</artifactId>
-                <version>${spring-shell-dependencies.version}</version>
+                <version>${spring-shell.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -32,6 +32,15 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
             </plugin>
 
             <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-maven-plugin -->
@@ -65,7 +74,7 @@
                                     @echo off
                                     rem echo bat file name : %0
                                     rem echo bat file path : %~dp0
-                                    java -jar "%~dp0${project.build.finalName}.jar" %*
+                                    java -jar --enable-native-access=ALL-UNNAMED "%~dp0${project.build.finalName}.jar" %*
                                 </echo>
                             </target>
                         </configuration>
@@ -104,7 +113,8 @@
         <!-- https://mvnrepository.com/artifact/org.springframework.shell/spring-shell-starter -->
         <dependency>
             <groupId>org.springframework.shell</groupId>
-            <artifactId>spring-shell-starter-jansi</artifactId>
+            <artifactId>spring-shell-starter</artifactId>
+            <version>4.0.0-M1</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->

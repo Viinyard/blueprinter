@@ -4,14 +4,14 @@
     <parent>
         <groupId>dev.vinyard.blueprinter</groupId>
         <artifactId>blueprinter</artifactId>
-        <version>2.0.1</version>
+        <version>3.0.0</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>dev.vinyard.blueprinter.plugins.api</groupId>
     <artifactId>blueprinter-plugins-api</artifactId>
     <packaging>jar</packaging>
-    <version>2.0.1</version>
+    <version>3.0.0</version>
 
     <name>blueprinter-plugins-api</name>
 

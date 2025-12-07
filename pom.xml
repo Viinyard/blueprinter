@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>dev.vinyard.blueprinter</groupId>
     <artifactId>blueprinter</artifactId>
-    <version>2.0.1</version>
+    <version>3.0.0</version>
     <packaging>pom</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
@@ -41,34 +41,31 @@
         <module>blueprinter-spring-boot-starter</module>
         <module>blueprinter-maven-plugin</module>
     </modules>
+    
 
     <properties>
-        <java.version>21</java.version>
-        <exec-maven-plugin.version>3.5.0</exec-maven-plugin.version>
+        <maven.compiler.release>25</maven.compiler.release>
+        <java.version>25</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring-boot-dependencies.version>3.3.3</spring-boot-dependencies.version>
-        <spring-shell-dependencies.version>3.3.3</spring-shell-dependencies.version>
-        <lombok.version>1.18.32</lombok.version>
-        <jaxb-api.version>2.3.1</jaxb-api.version>
-        <velocity-engine-core.version>2.3</velocity-engine-core.version>
-        <velocity-tools-generic.version>3.1</velocity-tools-generic.version>
-        <pf4j.version>3.12.1</pf4j.version>
-        <spring-boot-maven-plugin.version>3.3.3</spring-boot-maven-plugin.version>
-        <jsoup.version>1.17.1</jsoup.version>
-        <assertj-core.version>3.24.2</assertj-core.version>
-        <junit-jupiter-params.version>5.10.1</junit-jupiter-params.version>
-        <antlr4-runtime.version>4.13.1</antlr4-runtime.version>
-        <antlr4-maven-plugin.version>4.13.1</antlr4-maven-plugin.version>
-        <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
-        <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
-        <commons-io.version>2.18.0</commons-io.version>
-        <okhttp.version>4.12.0</okhttp.version>
-        <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
-        <jline-terminal-jansi.version>3.26.3</jline-terminal-jansi.version>
+        <spring-boot-dependencies.version>4.0.0</spring-boot-dependencies.version>
+        <spring-shell.version>4.0.0-M1</spring-shell.version>
+        <lombok.version>1.18.42</lombok.version>
+        <velocity-engine-core.version>2.4.1</velocity-engine-core.version>
+        <pf4j.version>3.14.0</pf4j.version>
+        <spring-boot-maven-plugin.version>4.0.0</spring-boot-maven-plugin.version>
+        <maven-assembly-plugin.version>3.8.0</maven-assembly-plugin.version>
+        <maven-compiler-plugin.version>3.14.1</maven-compiler-plugin.version>
+        <commons-io.version>2.21.0</commons-io.version>
+        <maven-antrun-plugin.version>3.2.0</maven-antrun-plugin.version>
 
         <!-- https://eclipse-ee4j.github.io/jaxb-ri/ -->
         <jakarta.xml.bind-api.version>4.0.2</jakarta.xml.bind-api.version>
         <jaxb-ri.version>4.0.5</jaxb-ri.version>
+
+        <maven-source-plugin.version>3.4.0</maven-source-plugin.version>
+        <maven-javadoc-plugin.version>3.12.0</maven-javadoc-plugin.version>
+        <maven-gpg-plugin.version>3.2.8</maven-gpg-plugin.version>
+        <central-publishing-maven-plugin.version>0.9.0</central-publishing-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -99,6 +96,40 @@
         </pluginManagement>
     </build>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>${maven-source-plugin.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>${maven-javadoc-plugin.version}</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.reporting/maven-reporting-impl -->
+        <dependency>
+            <groupId>org.apache.maven.reporting</groupId>
+            <artifactId>maven-reporting-impl</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>${maven-gpg-plugin.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.sonatype.central</groupId>
+            <artifactId>central-publishing-maven-plugin</artifactId>
+            <version>${central-publishing-maven-plugin.version}</version>
+        </dependency>
+    </dependencies>
+
     <profiles>
         <profile>
             <id>release</id>
@@ -107,7 +138,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
-                        <version>3.3.1</version>
+                        <version>${maven-source-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>attach-sources</id>
@@ -121,7 +152,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>3.11.1</version>
+                        <version>${maven-javadoc-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>attach-javadocs</id>
@@ -135,7 +166,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>3.2.7</version>
+                        <version>${maven-gpg-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -156,11 +187,11 @@
                     <plugin>
                         <groupId>org.sonatype.central</groupId>
                         <artifactId>central-publishing-maven-plugin</artifactId>
-                        <version>0.6.0</version>
+                        <version>${central-publishing-maven-plugin.version}</version>
                         <extensions>true</extensions>
                         <configuration>
                             <publishingServerId>central</publishingServerId>
-                            <tokenAuth>true</tokenAuth>
+                            <waitUntil>published</waitUntil>
                             <autoPublish>true</autoPublish>
                         </configuration>
                     </plugin>
